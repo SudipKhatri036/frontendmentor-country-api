@@ -8,6 +8,7 @@ import Loader from "./Loader";
 function CountryDetail() {
   const [isLoading, setIsLoading] = useState(true);
   const [countryDetail, setCountryDetail] = useState([]);
+  const [selectedCountry, setSelctedCountry] = useState(null);
 
   const { name } = useParams();
   const navigate = useNavigate();
@@ -22,9 +23,11 @@ function CountryDetail() {
         const res = await axios.get("/api/data.json");
 
         setCountryDetail(
-          res?.data?.filter(
-            (country) => country.name.toLowerCase() === name.toLowerCase(),
-          )[0],
+          res?.data?.filter((country) => {
+            if (selectedCountry) {
+              return country.alpha3Code === selectedCountry;
+            } else return country.name.toLowerCase() === name.toLowerCase();
+          })[0],
         );
       } catch (error) {
         console.log(error);
@@ -34,7 +37,7 @@ function CountryDetail() {
     };
 
     getCountryDetail();
-  }, [name]);
+  }, [name, selectedCountry, navigate]);
 
   return (
     <section>
@@ -45,7 +48,7 @@ function CountryDetail() {
           <div>
             <button
               onClick={() => navigate("/")}
-              className="mt-8 px-6 py-1 font-semibold tracking-wider shadow-[0px_0px_4px_0px_rgba(0,0,0,0.75);] dark:bg-dblue dark:text-white"
+              className="mt-8 px-6 py-1 font-semibold tracking-wider shadow-[0px_0px_4px_0px_rgba(0,0,0,0.75);] transition-all duration-300 hover:opacity-80 dark:bg-dblue dark:text-white"
             >
               &larr; Back
             </button>
@@ -137,7 +140,12 @@ function CountryDetail() {
                         return (
                           <li
                             key={idx}
-                            className="tefont-normal xt-sm px-6 py-1 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.75);] dark:bg-dblue dark:font-light dark:opacity-80"
+                            className="tefont-normal xt-sm cursor-pointer px-6 py-1 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.75);] transition-all duration-300 hover:scale-105 dark:bg-dblue dark:font-light dark:opacity-80"
+                            onClick={(e) => {
+                              setSelctedCountry(e.target.textContent);
+
+                              navigate(`/country/${border}`);
+                            }}
                           >
                             {border}
                           </li>

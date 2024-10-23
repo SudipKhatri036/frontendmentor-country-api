@@ -19,21 +19,19 @@ function CountriesList({ countries, isLoading }) {
 
           return (
             <div
-              className="rounded-lg bg-lbgblue shadow-md transition-all duration-300 dark:bg-dblue"
+              className="group cursor-pointer rounded-lg bg-lbgblue shadow-md transition-all duration-300 hover:shadow-lg dark:bg-dblue dark:hover:shadow-md dark:hover:shadow-white"
               key={countryName}
+              onClick={() => navigate(`country/${countryName}`)}
             >
               <div className="h-40 max-h-full max-w-full overflow-hidden rounded-t-lg">
                 <img
                   src={flag}
                   alt="Brazil"
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-cover transition-all duration-300 group-hover:scale-110"
                 />
               </div>
 
-              <div
-                className="cursor-pointer p-8 md:p-6 dark:text-dmtblue"
-                onClick={() => navigate(`country/${countryName}`)}
-              >
+              <div className="cursor-pointer p-8 md:p-6 dark:text-dmtblue">
                 <h3 className="mb-4 text-2xl font-bold capitalize tracking-wide">
                   {countryName}
                 </h3>
