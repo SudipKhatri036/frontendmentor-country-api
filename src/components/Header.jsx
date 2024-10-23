@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaMoon, FaSun } from "react-icons/fa";
+import { FaRegMoon, FaSun } from "react-icons/fa";
 
 function Header() {
   const [isDark, setIsDark] = useState(false);
@@ -25,7 +25,7 @@ function Header() {
             className="flex items-center gap-3 font-semibold transition-all duration-300 hover:opacity-80"
             onClick={() => setIsDark(!isDark)}
           >
-            {isDark ? <FaSun /> : <FaMoon />}
+            {isDark ? <FaSun /> : <FaRegMoon />}
             {isDark ? "Light Mode" : `Dark Mode`}
           </button>
         </div>
